@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('css/baguetteBox.min.css') }}" rel="stylesheet"/>
+            <link href="{{ asset('css/css.css') }}" rel="stylesheet"/>
+            <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+            <link href="{{ asset('css/smoothproducts.css') }}" rel="stylesheet"/>
+            <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/>
+        {% endblock %}
+    </head>
+    <body>
+    <main class="page service-page">
+        <div class="container">
+            <section class="clean-block clean-services dark"  id="home">
+            {% block body %}{% endblock %}
+            
+            </section>
+        </div>
+    </main>
+        {% block javascripts %}
+            <script src="{{ asset('js/baguetteBox.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/smoothproducts.min.js') }}"></script>
+            <script src="{{ asset('js/theme.js') }}"></script>
+            <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>
