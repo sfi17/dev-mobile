@@ -7,9 +7,63 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 import * as theme from '../theme';
 
+import React, { Component } from 'react';
+ import {
+   AppRegistry,
+   StyleSheet,
+   Text,
+   View,
+   NetInfo,
+   TouchableHighlight
+ } from 'react-native';
+ 
+ import WebServiceHandler from 'react-native-web-service-handler';
+ 
+ class ParkingGet extends Component {
+ 
+   constructor(){
+     super();
+     this.state = {
+       data: null,
+     }
+   }
+ 
+ 
+   componentDidMount() {
+     NetInfo.isConnected.addEventListener(
+       'change',
+       this._handleConnectivityChange
+     );
+   }
+   componentWillUnmount() {
+     NetInfo.isConnected.removeEventListener(
+       'change',
+       this._handleConnectivityChange
+     );
+   }
+   _handleConnectivityChange(status) {
+     console.log('*********_handleConnectivityChange: Network Connectivity status *******: ' + status);
+ 
+   }
+ 
+   callapi(){
+      WebServiceHandler.get('https://localhost:8000/api/parking')
+         .then((val)=>{
+           console.log('callapi: ' + JSON.stringify(val))
+           this.setState({data:val})
+         })
+         .catch((error) => console.log('callapi:'+ JSON.stringify(error)));
+   }
+
+  }
+
+const ParkingGet = new ParkingGet();
+
+const parkingsSpots = ParkingGet.callapi();
+
 const { Marker } = MapView;
 const { height, width } = Dimensions.get('screen');
-const parkingsSpots = [
+/*const parkingsSpots = [
   {
     id: 1,
     title: 'Parking 1',
@@ -59,7 +113,7 @@ Securite: Easy park`,
     Securite: Easy park`,
   },
 ];
-
+*/
 class ParkingMap extends Component {
   state = {
     hours: {},
